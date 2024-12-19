@@ -28,18 +28,38 @@ async def get_name(message: types.Message, state: FSMContext):
     await state.set_state(RestorantReview.phone_or_instagram)
 
 # Качество еды
-@review_router.message(RestorantReview.phone_or_instagram)
-async def get_contact(message: types.Message, state: FSMContext):
-    await state.update_data(phone_or_instagram=message.text)
-    await message.answer("Как вы оцениваете качество еды? (от 1 до 5)")
-    await state.set_state(RestorantReview.food_rating)
-
-# Оценка чистоты
 @review_router.message(RestorantReview.food_rating)
 async def get_food_rating(message: types.Message, state: FSMContext):
-    await state.update_data(food_rating=message.text)
-    await message.answer("Как оцениваете чистоту заведения? (от 1 до 5)")
-    await state.set_state(RestorantReview.cleanliness_rating)
+    try:
+        rating = int(message.text)
+        if 1 <= rating <= 5:
+            # Если рейтинг в пределах от 1 до 5, сохраняем его
+            await state.update_data(food_rating=rating)
+            await message.answer("Спасибо! Как вы оцениваете обслуживание? (от 1 до 5)")
+            await state.set_state(RestorantReview.service_rating)
+        else:
+            # Если значение вне диапазона
+            await message.answer("Пожалуйста, введите число от 1 до 5.")
+    except ValueError:
+        # Если пользователь ввел не число
+        await message.answer("Пожалуйста, введите число от 1 до 5.")
+
+
+@review_router.message(RestorantReview.food_rating)
+async def get_food_rating(message: types.Message, state: FSMContext):
+    try:
+        rating = int(message.text)
+        if 1 <= rating <= 5:
+            # Если рейтинг в пределах от 1 до 5, сохраняем его
+            await state.update_data(food_rating=rating)
+            await message.answer("Как оцениваете чистоту заведения? (от 1 до 5)")
+            await state.set_state(RestorantReview.cleanliness_rating)
+        else:
+            # Если значение вне диапазона
+            await message.answer("Пожалуйста, введите число от 1 до 5.")
+    except ValueError:
+        # Если пользователь ввёл не число
+        await message.answer("Пожалуйста, введите число от 1 до 5.")
 
 # Комментарий
 @review_router.message(RestorantReview.cleanliness_rating)
