@@ -34,9 +34,9 @@ async def handle_menu(callback: CallbackQuery):
 # Обработчик кнопки "Оставить отзыв"
 @start_router.callback_query(F.data == "start_review")
 async def handle_review(callback: CallbackQuery):
-    from handlers.review_dialog import RestorantReview
+    from handlers.review_dialog import RestourantReview
     from aiogram.fsm.context import FSMContext
-    await RestorantReview(
+    await RestourantReview(
         callback,
         FSMContext(bot=callback.bot, chat=callback.message.chat.id, user=callback.from_user.id)
     )
