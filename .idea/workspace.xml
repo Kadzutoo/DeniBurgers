@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc2e0d1-3da2-4678-9777-e46e5a31af96" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/review_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/review_dialog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +66,18 @@
       <workItem from="1734605764611" duration="401000" />
       <workItem from="1734606248962" duration="17000" />
       <workItem from="1734612060241" duration="11834000" />
-      <workItem from="1734809032783" duration="7481000" />
+      <workItem from="1734809032783" duration="8161000" />
+      <workItem from="1734952745872" duration="18000" />
+      <workItem from="1734952777760" duration="26000" />
+      <workItem from="1734952813880" duration="679000" />
+      <workItem from="1734954424550" duration="12000" />
+      <workItem from="1734954457081" duration="109000" />
+      <workItem from="1734954584384" duration="673000" />
+      <workItem from="1734955276721" duration="8000" />
+      <workItem from="1734955295140" duration="42000" />
+      <workItem from="1734955347544" duration="9000" />
+      <workItem from="1734955362982" duration="1186000" />
+      <workItem from="1734958259055" duration="2180000" />
     </task>
     <servers />
   </component>

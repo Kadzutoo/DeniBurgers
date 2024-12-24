@@ -6,13 +6,12 @@ from aiogram.fsm.context import FSMContext
 
 from bot_config import database
 
-
 review_router = Router()
 
 # FSM-состояния
 class RestourantReview(StatesGroup):
     name = State()
-    phone_number = State()
+    contact = State()
     food_rating = State()
     cleanliness_rating = State()
     extra_comments = State()
@@ -26,17 +25,17 @@ async def start_review(callback: types.CallbackQuery, state: FSMContext):
 async def process_name(message: types.Message, state: FSMContext):
     name = message.text.strip()
     if len(name) < 2 or len(name) > 50:
-        await message.answer("Имя должно быть от 2 до 2 символов. Попробуйте снова.")
+        await message.answer("Имя должно быть от 2 до 50 символов. Попробуйте снова.")
         return
     await state.update_data(name=name)
     await message.answer("Укажите ваш номер телефона или Instagram:")
-    await state.set_state(RestourantReview.phone_number)
+    await state.set_state(RestourantReview.contact)
 
-@review_router.message(RestourantReview.phone_number)
+@review_router.message(RestourantReview.contact)
 async def process_phone_number(message: types.Message, state: FSMContext):
     contact = message.text.strip()
     if len(contact) < 5 or len(contact) > 100:
-        await message.answer("Контактная информация должна быть от 5 до 30 символов. Попробуйте снова.")
+        await message.answer("Контактная информация должна быть от 5 до 100 символов. Попробуйте снова.")
         return
     await state.update_data(phone_number=contact)
 
@@ -72,28 +71,23 @@ async def process_cleanliness_rating(message: types.Message, state: FSMContext):
 
 @review_router.message(RestourantReview.extra_comments)
 async def process_extra_comments(message: types.Message, state: FSMContext):
-    comments = message.text
-    await state.update_data(extra_comments=comments)
-    data = await state.get_data()
-
- # Сохранение данных в базу
-    await database.save_review(data)
-
-
-@review_router.message(RestourantReview.extra_comments)
-async def get_extra_comments(message: types.Message, state: FSMContext):
+    # Сохранение комментариев
     await state.update_data(extra_comments=message.text)
     data = await state.get_data()
+
+    # Сохранение данных в базу
+    database.save_review(data)
+
+    # Итоговый ответ
     await message.answer(
         f"Спасибо за ваш отзыв!\n\n"
         f"Имя: {data['name']}\n"
         f"Контакты: {data['phone_number']}\n"
         f"Оценка еды: {data['food_rating']}\n"
         f"Оценка чистоты: {data['cleanliness_rating']}\n"
-        f"Дополнительные комментарии: {data['extra_comments']}"
+        f"Дополнительные комментарии: {data['extra_comments']}",
+        reply_markup=types.ReplyKeyboardRemove()
     )
 
-
-# конец
+    # Завершение FSM
     await state.clear()
-

@@ -22,7 +22,7 @@ class Database:
     async def save_review(self, data: Dict):
         with sqlite3.connect(self.path) as conn:
             conn.execute("""
-                INSERT INTO reviews (name, phone_number, food_rating, cleanliness_rating, extra_comments)
+                INSERT INTO reviews (name, contact, food_rating, cleanliness_rating, extra_comments)
                 VALUES (?, ?, ?, ?, ?)
             """, (
                 data['name'],
